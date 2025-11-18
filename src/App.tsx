@@ -10,6 +10,7 @@ import MoveList from "./BoardInfo/MoveList";
 import FENGenerator from "./BoardInfo/FENGenerator";
 import FENParser from "./BoardInfo/FENParser";
 import NotificationModal from "./BoardInfo/NotificationModal";
+import TrainingMonitorSSE from "./components/TrainingMonitorSSE";
 import { useGameStore } from "./store/gameStore";
 
 function App() {
@@ -61,6 +62,18 @@ function App() {
         {/* 左侧功能按钮区域 */}
         <div className="app__left-panel">
           <div className="app__control-buttons">
+            {/* 训练监控组件 - SSE版本（推荐） */}
+            <TrainingMonitorSSE 
+              sseUrl={(import.meta as any).env?.VITE_SSE_URL || 'http://localhost:8001/sse/training'}
+              enabled={true}
+            />
+            
+            {/* 训练监控组件 - WebSocket版本（备选） */}
+            {/* <TrainingMonitor 
+              wsUrl={import.meta.env.VITE_WS_URL || 'ws://localhost:8000/ws/training'}
+              enabled={false}
+            /> */}
+            
             <BoardOptions
               handleFlipBoard={handleFlipBoard}
               handleInit={handleInit}
