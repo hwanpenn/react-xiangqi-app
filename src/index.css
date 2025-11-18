@@ -1,0 +1,61 @@
+@import "./css/fonts.css";
+@import "./css/buttons.css";
+@import "./css/squares.css";
+@import "./css/board.css";
+@import "./css/board-info.css";
+@import "./css/captured-piece.css";
+@import "./css/FEN-generator.css";
+@import "./css/piece.css";
+@import "./css/FEN-parser.css";
+@import "./css/notification-modal.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: rgb(253, 253, 253);
+  color: white;
+  margin: 0 auto;
+  max-width: 1100px;
+}
+
+* {
+  font-family: Ubuntu;
+}
+
+h1 {
+  border-radius: 5px;
+  padding: 10px 40px;
+  font-weight: bold;
+  font-size: 35px;
+}
+
+.red {
+  background-color: hsl(9.18, 95.51%, 34.9%);
+}
+
+.black {
+  background-color: hsl(46.67, 13.85%, 12.75%);
+}
+
+.app__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.app__container {
+  display: grid;
+  grid-template-columns: 450px 1fr;
+  grid-template-rows: 1fr;
+  gap: 50px;
+}
+

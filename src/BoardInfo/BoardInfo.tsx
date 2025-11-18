@@ -3,6 +3,7 @@ import MoveList from "./MoveList";
 import FENGenerator from "./FENGenerator";
 import FENParser from "./FENParser";
 import CapturedPiece from "./CapturedPiece";
+
 export default function BoardInfo() {
   return (
     <div className="board-info">
@@ -20,3 +21,4 @@ export default function BoardInfo() {
     </div>
   );
 }
+
