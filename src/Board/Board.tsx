@@ -1,3 +1,7 @@
+/**
+ * 棋盘容器组件
+ * 渲染整个10x9的中国象棋棋盘
+ */
 import React from "react";
 import Square from "./Square";
 import type { Square as SquareType } from '../types';
@@ -13,4 +17,3 @@ export default function Board({ squares }: BoardProps) {
     </div>
   );
 }
-

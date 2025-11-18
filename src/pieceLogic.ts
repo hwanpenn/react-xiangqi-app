@@ -1,15 +1,36 @@
+/**
+ * 棋子移动规则逻辑
+ * 实现中国象棋各棋子的移动规则，返回所有可能的移动目标位置
+ */
 import type { Square, ColorType } from './types';
 
+/**
+ * 添加可用格子 ID 到数组
+ * @param ary 目标数组
+ * @param row 行号
+ * @param column 列号
+ */
 function addAvailableSqrId(ary: string[], row: number, column: number): void {
   ary.push(`${row}-${column}`);
 }
 
+/**
+ * 九宫格（将/帅和士的活动范围）定义
+ */
 const palace = {
-  redRow: [1, 2, 3],
-  blackRow: [10, 9, 8],
-  column: [4, 5, 6],
+  redRow: [1, 2, 3],      // 红方九宫格行号（从下往上）
+  blackRow: [10, 9, 8],   // 黑方九宫格行号（从下往上）
+  column: [4, 5, 6],      // 九宫格列号
 };
 
+/**
+ * 兵/卒的移动规则
+ * 过河前只能向前，过河后可以向前、左、右移动
+ * @param color 棋子颜色
+ * @param row 当前行
+ * @param column 当前列
+ * @returns 可移动位置的 ID 数组
+ */
 export function pawn(color: ColorType, row: number, column: number): string[] {
   const availableSqrId: string[] = [];
   if (color === "red") {
@@ -36,6 +57,14 @@ export function pawn(color: ColorType, row: number, column: number): string[] {
   return availableSqrId;
 }
 
+/**
+ * 士/仕的移动规则
+ * 只能在九宫格内斜着移动（每次移动一格）
+ * @param color 棋子颜色
+ * @param row 当前行
+ * @param column 当前列
+ * @returns 可移动位置的 ID 数组
+ */
 export function advisor(color: ColorType, row: number, column: number): string[] {
   const availableSqrId: string[] = [];
   if (color === "red") {
@@ -76,6 +105,15 @@ export function advisor(color: ColorType, row: number, column: number): string[]
   return availableSqrId;
 }
 
+/**
+ * 象/相的移动规则
+ * 走"田"字，不能过河，且田字中心不能有棋子（塞象眼）
+ * @param sqr 当前棋盘状态
+ * @param color 棋子颜色
+ * @param row 当前行
+ * @param column 当前列
+ * @returns 可移动位置的 ID 数组
+ */
 export function bishop(sqr: Square[], color: ColorType, row: number, column: number): string[] {
   const availableSqrId: string[] = [];
   if (color === "red") {
@@ -140,6 +178,14 @@ export function bishop(sqr: Square[], color: ColorType, row: number, column: num
   return availableSqrId;
 }
 
+/**
+ * 将/帅的移动规则
+ * 只能在九宫格内移动（上下左右，每次一格）
+ * @param color 棋子颜色
+ * @param row 当前行
+ * @param column 当前列
+ * @returns 可移动位置的 ID 数组
+ */
 export function king(color: ColorType, row: number, column: number): string[] {
   const availableSqrId: string[] = [];
   if (column > 4) {
@@ -166,6 +212,14 @@ export function king(color: ColorType, row: number, column: number): string[] {
   return availableSqrId;
 }
 
+/**
+ * 车/車的移动规则
+ * 可以横着或竖着移动任意距离，但不能越过其他棋子
+ * @param sqr 当前棋盘状态
+ * @param row 当前行
+ * @param column 当前列
+ * @returns 可移动位置的 ID 数组
+ */
 export function rook(sqr: Square[], row: number, column: number): string[] {
   const availableSqrId: string[] = [];
   const horizontal = sqr.filter((s) => s.row === row);
@@ -238,6 +292,16 @@ export function rook(sqr: Square[], row: number, column: number): string[] {
   return availableSqrId;
 }
 
+/**
+ * 炮的移动规则
+ * 移动时：可以横着或竖着移动任意距离，但不能越过其他棋子
+ * 吃子时：必须隔着一个棋子（炮架）才能吃子
+ * @param sqr 当前棋盘状态
+ * @param color 棋子颜色
+ * @param row 当前行
+ * @param column 当前列
+ * @returns 可移动位置的 ID 数组
+ */
 export function cannon(sqr: Square[], color: ColorType, row: number, column: number): string[] {
   const availableSqrId: string[] = [];
   const horizontalC = sqr.filter((s) => s.row === row);
@@ -330,6 +394,14 @@ export function cannon(sqr: Square[], color: ColorType, row: number, column: num
   return availableSqrId;
 }
 
+/**
+ * 马/馬的移动规则
+ * 走"日"字，且马脚（前进方向的第一格）不能有棋子（蹩马腿）
+ * @param sqr 当前棋盘状态
+ * @param row 当前行
+ * @param column 当前列
+ * @returns 可移动位置的 ID 数组
+ */
 export function knight(sqr: Square[], row: number, column: number): string[] {
   const availableSqrId: string[] = [];
   const upObstacle = sqr.find(s => s.id === `${row + 1}-${column}`);
@@ -376,6 +448,15 @@ export function knight(sqr: Square[], row: number, column: number): string[] {
   return availableSqrId;
 }
 
+/**
+ * 检查指定位置是否被将（处于危险状态）
+ * 检查该位置是否被对方棋子攻击
+ * @param sqr 当前棋盘状态
+ * @param color 要检查的颜色（红方或黑方）
+ * @param row 要检查的行号
+ * @param column 要检查的列号
+ * @returns 如果被将返回 true，安全返回 undefined
+ */
 export function checkDanger(sqr: Square[], color: ColorType, row: number, column: number): boolean | undefined {
   const vertical = sqr.filter(s => s.column === column);
   const horizontal = sqr.filter(s => s.row === row);

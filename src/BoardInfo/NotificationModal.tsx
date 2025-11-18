@@ -1,3 +1,7 @@
+/**
+ * 通知模态框组件
+ * 显示错误信息或游戏结束提示
+ */
 import React from "react";
 import { Modal } from 'antd';
 import type { ColorType } from '../types';
@@ -31,4 +35,3 @@ export default function NotificationModal({
     </Modal>
   );
 }
-

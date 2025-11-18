@@ -1,7 +1,11 @@
+/**
+ * 棋子组件
+ * 根据棋子类型和颜色显示对应的 SVG 图片
+ */
 import React from 'react';
 import type { Square } from '../types';
 
-// Import images
+// 导入所有棋子图片
 import redKing from '../images/red_king.svg';
 import redRook from '../images/red_rook.svg';
 import redKnight from '../images/red_knight.svg';
@@ -17,6 +21,10 @@ import blackAdvisor from '../images/black_advisor.svg';
 import blackBishop from '../images/black_bishop.svg';
 import blackPawn from '../images/black_pawn.svg';
 
+/**
+ * 棋子图片映射表
+ * 键格式：{color}_{piece}
+ */
 const pieceImages: Record<string, string> = {
   'red_king': redKing,
   'red_rook': redRook,
@@ -39,6 +47,7 @@ interface PieceProps {
 }
 
 export default function Piece({ pieceInfo }: PieceProps) {
+  // 如果没有棋子，不渲染
   if (!pieceInfo.piece || !pieceInfo.color) return null;
   
   const imageKey = `${pieceInfo.color}_${pieceInfo.piece}`;
@@ -53,4 +62,3 @@ export default function Piece({ pieceInfo }: PieceProps) {
     />
   );
 }
-

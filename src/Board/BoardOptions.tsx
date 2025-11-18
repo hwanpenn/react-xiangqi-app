@@ -1,3 +1,7 @@
+/**
+ * 棋盘控制选项组件
+ * 提供翻转棋盘和重新开始游戏的功能
+ */
 import React from 'react';
 import { Button, Space } from 'antd';
 
@@ -16,4 +20,3 @@ export default function BoardOptions({ handleFlipBoard, handleInit }: BoardOptio
     </div>
   );
 }
-

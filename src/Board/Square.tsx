@@ -1,3 +1,7 @@
+/**
+ * 棋盘格子组件
+ * 渲染所有90个格子，处理点击事件并显示棋子
+ */
 import React from 'react';
 import Piece from './Piece';
 import { useGameStore } from '../store/gameStore';
@@ -10,6 +14,7 @@ interface SquareProps {
 export default function Square({ squares }: SquareProps) {
   const { handleMovePiece } = useGameStore();
 
+  // 渲染所有格子
   const sqr = squares.map((sq) => {
     return (
       <div
@@ -26,4 +31,3 @@ export default function Square({ squares }: SquareProps) {
 
   return <>{sqr}</>;
 }
-

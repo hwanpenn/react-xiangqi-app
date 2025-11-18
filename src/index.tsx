@@ -1,3 +1,7 @@
+/**
+ * 应用入口文件
+ * 初始化 React 应用并配置 Ant Design 国际化
+ */
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ConfigProvider } from 'antd';
@@ -11,9 +15,9 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
+    {/* 配置 Ant Design 使用中文语言包 */}
     <ConfigProvider locale={zhCN}>
       <App />
     </ConfigProvider>
   </React.StrictMode>
 );
-
