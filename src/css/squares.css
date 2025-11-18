@@ -8,19 +8,22 @@ img {
 }
 .square__available::after {
   content: "\2219";
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
-  text-align: center;
   /* color: hsl(120, 73.4%, 44.9%); */
-  color: blue;
+  color: rgba(0, 0, 255, 0.555);
   font-size: 45px;
   font-weight: 700;
   pointer-events: none;
   cursor: pointer;
+  line-height: 1;
+  transform: translateY(-2px); /* 往上移动2px */
 }
 
 .square__available:hover {

@@ -3,7 +3,7 @@
  * 使用 Zustand 管理整个象棋应用的状态和游戏逻辑
  */
 import { create } from 'zustand';
-import type { Square, PieceType, ColorType, GameState } from '../types';
+import type { Square, PieceType, ColorType, GameState, MoveHistory } from '../types';
 import {
   pawn,
   advisor,
@@ -29,6 +29,8 @@ interface GameStore extends GameState {
   setCurrentTurn: (turn: ColorType) => void;
   setCapturedPieceList: (pieces: Square[]) => void;
   addCapturedPiece: (piece: Square) => void;
+  setMoveHistory: (history: MoveHistory[]) => void;
+  addMoveHistory: (move: MoveHistory) => void;
   setFENOutput: (fen: string) => void;
   setError: (error: boolean) => void;
   setGameOver: (gameOver: boolean) => void;
@@ -325,6 +327,7 @@ export const useGameStore = create<GameStore>((set, get) => {
     counter: 0,
     currentTurn: "red",
     capturedPieceList: [],
+    moveHistory: [],
     FENOutput: initFEN,
     error: false,
     gameOver: false,
@@ -340,6 +343,10 @@ export const useGameStore = create<GameStore>((set, get) => {
     addCapturedPiece: (piece) => set((state) => ({
       capturedPieceList: [...state.capturedPieceList, piece]
     })),
+    setMoveHistory: (history) => set({ moveHistory: history }),
+    addMoveHistory: (move) => set((state) => ({
+      moveHistory: [...state.moveHistory, move]
+    })),
     setFENOutput: (fen) => set({ FENOutput: fen }),
     setError: (error) => set({ error }),
     setGameOver: (gameOver) => set({ gameOver }),
@@ -351,6 +358,7 @@ export const useGameStore = create<GameStore>((set, get) => {
       counter: 0,
       currentTurn: "red",
       capturedPieceList: [],
+      moveHistory: [],
       FENOutput: initFEN,
       error: false,
       gameOver: false,
@@ -410,6 +418,20 @@ export const useGameStore = create<GameStore>((set, get) => {
           const destinationIndex = newSqr.findIndex((s) => s.id === `${row}-${column}`);
 
           if (startIndex !== -1 && destinationIndex !== -1 && state.selectedSquareInfo) {
+            // 记录走子历史
+            const capturedPiece = state.squares.find((s) => s.id === `${row}-${column}`);
+            const moveNumber = Math.floor(state.moveHistory.length / 2) + 1;
+            const moveHistory: MoveHistory = {
+              moveNumber: state.currentTurn === "red" ? moveNumber : moveNumber,
+              color: state.currentTurn,
+              piece: state.selectedSquareInfo.piece,
+              fromRow: state.selectedSquareInfo.row,
+              fromColumn: state.selectedSquareInfo.column,
+              toRow: row,
+              toColumn: column,
+              capturedPiece: capturedPiece?.piece || undefined,
+            };
+
             // 清除所有格子的移动标记
             for (const s of newSqr) {
               s.isJustMoved = false;
@@ -433,14 +455,15 @@ export const useGameStore = create<GameStore>((set, get) => {
               isJustMoved: true,
             };
 
-            // 更新状态：切换回合，重置选择
-            set({
+            // 更新状态：切换回合，重置选择，添加走子历史
+            set((prev) => ({
               squares: newSqr,
               currentTurn: state.currentTurn === "red" ? "black" : "red",
               counter: 2,
               selectedSquareInfo: null,
               availableSquares: [],
-            });
+              moveHistory: [...prev.moveHistory, moveHistory],
+            }));
 
             // 异步检查游戏是否结束
             setTimeout(() => {
@@ -480,7 +503,7 @@ export const useGameStore = create<GameStore>((set, get) => {
      */
     handleInit: () => {
       handleClearBoard();
-      set({ capturedPieceList: [] });
+      set({ capturedPieceList: [], moveHistory: [] });
       const state = get();
       state.handleParseFENInput(initFEN);
     },
@@ -567,6 +590,7 @@ export const useGameStore = create<GameStore>((set, get) => {
         squares: state.isFlipped ? newSqr.reverse() : newSqr,
         currentTurn: turnOrder === "b" ? "black" : "red",
         counter: 0,
+        moveHistory: [], // 解析 FEN 时清空走子历史
       });
     },
 

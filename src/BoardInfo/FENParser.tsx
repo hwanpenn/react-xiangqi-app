@@ -51,7 +51,7 @@ export default function FENParser() {
     <>
       {!isClicked && (
         <Button type="primary" onClick={handleOpen}>
-          Parse FEN
+          解析FEN
         </Button>
       )}
       {isClicked && (

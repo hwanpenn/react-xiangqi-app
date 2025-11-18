@@ -26,6 +26,20 @@ export interface Square {
 }
 
 /**
+ * 走子历史记录接口
+ */
+export interface MoveHistory {
+  moveNumber: number;            // 走子序号
+  color: ColorType;              // 走子方颜色
+  piece: PieceType;              // 棋子类型
+  fromRow: number;               // 起始行
+  fromColumn: number;            // 起始列
+  toRow: number;                 // 目标行
+  toColumn: number;              // 目标列
+  capturedPiece?: PieceType;     // 被吃的棋子（如果有）
+}
+
+/**
  * 游戏状态接口
  * 包含整个游戏的所有状态信息
  */
@@ -37,6 +51,7 @@ export interface GameState {
   counter: number;               // 点击计数器（用于判断是选择还是移动）
   currentTurn: ColorType;        // 当前回合方
   capturedPieceList: Square[];   // 被吃掉的棋子列表
+  moveHistory: MoveHistory[];    // 走子历史记录
   FENOutput: string;            // 当前局面的 FEN 字符串
   error: boolean;               // 是否有错误
   gameOver: boolean;            // 游戏是否结束

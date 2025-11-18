@@ -13,9 +13,9 @@ interface BoardOptionsProps {
 export default function BoardOptions({ handleFlipBoard, handleInit }: BoardOptionsProps) {
   return (
     <div className='board-options-container'>
-      <Space>
-        <Button type="primary" onClick={handleFlipBoard}>Flip Board</Button>
-        <Button type="primary" onClick={handleInit}>Restart Game</Button>
+      <Space direction="vertical" style={{ width: '100%' }}>
+        <Button type="primary" onClick={handleFlipBoard} block>翻转棋盘</Button>
+        <Button type="primary" onClick={handleInit} block>重新开始</Button>
       </Space>
     </div>
   );

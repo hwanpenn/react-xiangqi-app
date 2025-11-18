@@ -38,7 +38,7 @@ export default function FENGenerator() {
     <>
       {!showFEN && (
         <Button type="primary" onClick={handleClickGenerateFEN}>
-          Get FEN
+          获取FEN
         </Button>
       )}
       {showFEN && (

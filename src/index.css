@@ -7,6 +7,7 @@
 @import "./css/FEN-generator.css";
 @import "./css/piece.css";
 @import "./css/FEN-parser.css";
+@import "./css/move-list.css";
 @import "./css/notification-modal.css";
 @tailwind base;
 @tailwind components;
@@ -54,8 +55,70 @@ h1 {
 
 .app__container {
   display: grid;
-  grid-template-columns: 450px 1fr;
+  grid-template-columns: auto 450px auto;
   grid-template-rows: 1fr;
-  gap: 50px;
+  gap: 30px;
+  align-items: start;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.app__left-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 220px;
+}
+
+.app__control-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.app__fen-generator {
+  width: 100%;
+  margin-top: 30px;
+}
+
+.app__fen-parser {
+  width: 100%;
+  /* margin-top: 15px; */
+}
+
+.app__board-center {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.app__right-panel {
+  display: flex;
+  flex-direction: column;
+  min-width: 220px;
+  padding: 20px;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: black;
+  min-height: 500px;
+}
+
+.app__right-panel h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.app__bottom-panel {
+  margin-top: 10px;
+  padding: 0 20px;
 }
 

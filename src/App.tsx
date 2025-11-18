@@ -2,10 +2,13 @@
  * 主应用组件
  * 负责渲染整个象棋应用界面，包括棋盘、控制选项和游戏信息面板
  */
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Board from "./Board/Board";
 import BoardOptions from "./Board/BoardOptions";
 import BoardInfo from "./BoardInfo/BoardInfo";
+import MoveList from "./BoardInfo/MoveList";
+import FENGenerator from "./BoardInfo/FENGenerator";
+import FENParser from "./BoardInfo/FENParser";
 import NotificationModal from "./BoardInfo/NotificationModal";
 import { useGameStore } from "./store/gameStore";
 
@@ -46,20 +49,44 @@ function App() {
         currentTurn={currentTurn}
       />
       
-      {/* 应用头部：显示标题和控制选项 */}
+      {/* 应用头部：显示标题 */}
       <div className={`app__header ${error || gameOver ? "disabled" : ""}`}>
         <h1 className={currentTurn === "red" ? "red" : "black"}>
-          Xiang Qi App
+          中国象棋{currentTurn === "red" ? "（红方持棋）" : "（黑方持棋）"}
         </h1>
-        <BoardOptions
-          handleFlipBoard={handleFlipBoard}
-          handleInit={handleInit}
-        />
       </div>
       
-      {/* 主容器：棋盘和游戏信息面板 */}
+      {/* 主容器：左侧功能按钮、中间棋盘、右侧走子列表 */}
       <div className={`app__container ${error ? "disabled" : ""}`}>
-        <Board squares={squares} />
+        {/* 左侧功能按钮区域 */}
+        <div className="app__left-panel">
+          <div className="app__control-buttons">
+            <BoardOptions
+              handleFlipBoard={handleFlipBoard}
+              handleInit={handleInit}
+            />
+            <div className="app__fen-generator">
+              <FENGenerator />
+            </div>
+            <div className="app__fen-parser">
+              <FENParser />
+            </div>
+          </div>
+        </div>
+        
+        {/* 中间棋盘 */}
+        <div className="app__board-center">
+          <Board squares={squares} />
+        </div>
+        
+        {/* 右侧走子列表 */}
+        <div className="app__right-panel">
+          <MoveList />
+        </div>
+      </div>
+      
+      {/* 底部信息面板：被吃掉的棋子、FEN解析器等 */}
+      <div className={`app__bottom-panel ${error ? "disabled" : ""}`}>
         <BoardInfo />
       </div>
     </div>

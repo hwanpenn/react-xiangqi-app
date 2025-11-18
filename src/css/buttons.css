@@ -12,7 +12,8 @@
 }
 
 .board-options-container{
-    margin-bottom: 10px;
+    margin-bottom: 0;
+    width: 100%;
 }
 
 .btn--primary{
