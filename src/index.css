@@ -40,11 +40,13 @@ h1 {
 }
 
 .red {
-  background-color: hsl(9.18, 95.51%, 34.9%);
+  /* background-colcoor: hsl(9.18, 95.51%, 34.9%); */
+  color: hsl(9.18, 95.51%, 34.9%);
 }
 
 .black {
-  background-color: hsl(46.67, 13.85%, 12.75%);
+  /* background-color: hsl(46.67, 13.85%, 12.75%); */
+  color: hsl(46.67, 13.85%, 12.75%);
 }
 
 .app__header {
