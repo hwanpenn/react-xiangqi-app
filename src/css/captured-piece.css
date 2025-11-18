@@ -1,8 +1,31 @@
+.captured-piece-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.captured-piece-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+}
+
 .captured-piece-list__container{
-    display: grid;
-    grid-template-columns: repeat(15, 1fr);
-    grid-template-rows: 50px;
-    column-gap: 3px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    min-height: 50px;
+}
+
+.captured-piece-empty {
+    color: #999;
+    font-size: 12px;
+    font-style: italic;
 }
 
 .captured-piece-list__container img{

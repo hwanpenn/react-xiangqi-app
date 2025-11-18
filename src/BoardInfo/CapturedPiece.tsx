@@ -24,11 +24,22 @@ export default function CapturedPiece({ color }: CapturedPieceProps) {
     return (pieceA > pieceB ? -1 : 1);
   });
 
+  const colorName = color === 'red' ? '红方' : '黑方';
+  
   return (
-    <div className='captured-piece-list__container'>
-      {filteredList.map((p, index) => (
-        <Piece pieceInfo={p} key={`${p.id}-${index}`} />
-      ))}
+    <div className='captured-piece-wrapper'>
+      <div className='captured-piece-label'>
+        {colorName}被吃子：
+      </div>
+      <div className='captured-piece-list__container'>
+        {filteredList.length === 0 ? (
+          <span className='captured-piece-empty'>无</span>
+        ) : (
+          filteredList.map((p, index) => (
+            <Piece pieceInfo={p} key={`${p.id}-${index}`} />
+          ))
+        )}
+      </div>
     </div>
   );
 }

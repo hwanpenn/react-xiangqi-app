@@ -100,7 +100,7 @@ h1 {
 .app__right-panel {
   display: flex;
   flex-direction: column;
-  min-width: 220px;
+  min-width: 240px;
   padding: 20px;
   background: white;
   border-radius: 5px;
