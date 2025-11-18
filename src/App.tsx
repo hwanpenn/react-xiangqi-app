@@ -62,17 +62,11 @@ function App() {
         {/* 左侧功能按钮区域 */}
         <div className="app__left-panel">
           <div className="app__control-buttons">
-            {/* 训练监控组件 - SSE版本（推荐） */}
+            {/* 训练监控组件 - SSE版本 */}
             <TrainingMonitorSSE 
               sseUrl={(import.meta as any).env?.VITE_SSE_URL || 'http://localhost:8001/sse/training'}
               enabled={true}
             />
-            
-            {/* 训练监控组件 - WebSocket版本（备选） */}
-            {/* <TrainingMonitor 
-              wsUrl={import.meta.env.VITE_WS_URL || 'ws://localhost:8000/ws/training'}
-              enabled={false}
-            /> */}
             
             <BoardOptions
               handleFlipBoard={handleFlipBoard}

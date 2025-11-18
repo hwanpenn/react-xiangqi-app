@@ -2,7 +2,6 @@
  * 走子历史列表组件
  * 显示游戏中的走子历史记录
  */
-import React from 'react';
 import { useGameStore } from '../store/gameStore';
 import type { MoveHistory } from '../types';
 
